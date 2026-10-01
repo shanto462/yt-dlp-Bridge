@@ -99,6 +99,7 @@ export const PLAYLIST_PRESETS = [
   ['%(playlist_title)s/%(title)s.%(ext)s', 'Playlist folder / Title'],
   ['%(playlist_title)s/%(artist,uploader)s - %(track,title)s.%(ext)s', 'Playlist folder / Artist - Title'],
   ['%(playlist_index)03d - %(title)s.%(ext)s', 'No folder / 001 - Title'],
+  ['%(title)s.%(ext)s', 'No folder / Title'],
 ];
 
 export const label = (list, value) => (list.find(([v]) => v === value) || [value, value])[1];
