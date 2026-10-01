@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "yt-dlp Bridge",
+  "version": "1.0.0",
+  "description": "Download videos, audio and whole playlists with the yt-dlp installed on your Mac. Format, quality, cover art, tags and folder are set here.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvSLou1ip/K7pJqiTpK9C42x9dNtYWYG588uz/HZ9DxK58rKuLKIKMB6zEOG3OqiiFEexFtFnDejZDjPBrVNb8zZviACtUkV9PBx8bQVHZjtpxO6NCIXHwx61pP4SzUKL/DCV75Zzcn+h2LO2R2ZchcAcQ7qvn3sA07fB/lQT6ENy0nzdmJ5YkFzYwwzfSgwDcX70lnuRWiYbaJqpy68S6si42RxhkmT1W7EiPxHH2co8PPAqHlAQmxbclNCbpTizugpXH95dgUcQWsdGqneXixtjhrazpZNGweikhpLFv7vgGTg/8R2LAU4AZ6ncpR/bXwDZP++npvf1dC/Amp32LwIDAQAB",
+  "minimum_chrome_version": "120",
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "action": {
+    "default_title": "yt-dlp Bridge",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" }
+  },
+  "options_ui": { "page": "options.html", "open_in_tab": true },
+  "background": { "service_worker": "background.js", "type": "module" },
+  "permissions": ["storage", "contextMenus", "activeTab", "notifications"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "commands": {
+    "download-current": {
+      "suggested_key": { "default": "Alt+Shift+D", "mac": "Alt+Shift+D" },
+      "description": "Download the current page with yt-dlp"
+    }
+  }
+}

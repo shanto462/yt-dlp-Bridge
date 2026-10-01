@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>yt-dlp Bridge</title>
+  <link rel="stylesheet" href="lib/ui.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <img src="icons/icon32.png" alt="" width="20" height="20">
+    <strong>yt-dlp Bridge</strong>
+    <span class="status" id="status" title="">
+      <span class="dot" id="statusDot"></span><span id="statusText">Checking…</span>
+    </span>
+    <button class="icon-btn" id="openSettings" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </header>
+
+  <div class="callout err" id="banner" hidden>
+    <div>
+      <div id="bannerText"></div>
+      <button class="btn btn-primary banner-action" id="bannerAction" hidden></button>
+    </div>
+  </div>
+
+  <main class="panel">
+    <section class="target">
+      <div class="target-title" id="pageTitle">—</div>
+      <div class="target-kind"><span class="pill" id="kind">—</span><span class="muted small" id="site"></span></div>
+      <input class="input link" id="link" type="url" placeholder="Paste a video or playlist link" spellcheck="false" autocomplete="off">
+      <p class="note small" id="note" hidden></p>
+    </section>
+
+    <section class="group" id="scopeGroup">
+      <div class="seg" role="radiogroup" aria-label="What to download">
+        <label><input type="radio" name="scope" value="single"><span id="singleLabel">This video</span></label>
+        <label><input type="radio" name="scope" value="playlist"><span id="playlistLabel">Whole playlist</span></label>
+      </div>
+      <label class="items" id="itemsRow" hidden>
+        <span class="muted small">Items</span>
+        <input class="input" id="playlistItems" placeholder="All. Or e.g. 1-10, 15" spellcheck="false">
+      </label>
+    </section>
+
+    <section class="group">
+      <div class="seg" role="radiogroup" aria-label="Audio or video">
+        <label><input type="radio" name="mode" value="audio"><span>Audio</span></label>
+        <label><input type="radio" name="mode" value="video"><span>Video</span></label>
+      </div>
+      <div class="row" id="audioRow">
+        <select class="select" id="audioFormat" aria-label="Audio format"></select>
+        <select class="select" id="audioQuality" aria-label="Audio quality"></select>
+      </div>
+      <div class="row" id="videoRow" hidden>
+        <select class="select" id="videoQuality" aria-label="Video quality"></select>
+        <select class="select" id="videoContainer" aria-label="Video container"></select>
+      </div>
+      <div class="checks">
+        <label class="check"><input type="checkbox" id="embedThumbnail"><span>Cover art</span></label>
+        <label class="check"><input type="checkbox" id="embedMetadata"><span>Tags</span></label>
+        <label class="check" title="If the file already exists, delete it and download again"><input type="checkbox" id="overwrite"><span>Replace existing</span></label>
+      </div>
+      <div class="folder">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 5.5a1.5 1.5 0 0 1 1.5-1.5h3.6l1.8 2h6.6a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5H4a1.5 1.5 0 0 1-1.5-1.5z" stroke-linejoin="round"/></svg>
+        <span class="folder-path" id="folderPath" title=""></span>
+        <button class="btn btn-ghost small" id="changeFolder">Change</button>
+      </div>
+    </section>
+
+    <button class="btn btn-primary download" id="download">Download</button>
+    <p class="feedback small" id="feedback" role="status" aria-live="polite"></p>
+  </main>
+
+  <section class="jobs" id="jobsSection" hidden>
+    <div class="jobs-head">
+      <span class="muted small">Downloads</span>
+      <button class="btn btn-ghost small" id="clearJobs">Clear finished</button>
+    </div>
+    <ul id="jobs"></ul>
+  </section>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

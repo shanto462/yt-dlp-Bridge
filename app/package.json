@@ -1,0 +1,31 @@
+{
+  "name": "ytdlp-bridge",
+  "productName": "yt-dlp Bridge",
+  "version": "1.0.0",
+  "description": "Menu bar helper that runs your local yt-dlp for the yt-dlp Bridge browser extension.",
+  "main": "src/main.js",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "dist": "electron-builder --mac --dir && codesign --force --deep --sign - dist/mac*/*.app"
+  },
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "local.ytdlp-bridge",
+    "productName": "yt-dlp Bridge",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["src/**", "assets/**", "package.json"],
+    "mac": {
+      "target": ["dir"],
+      "category": "public.app-category.utilities",
+      "icon": "build/icon.png",
+      "identity": null,
+      "extendInfo": { "LSUIElement": true }
+    }
+  }
+}

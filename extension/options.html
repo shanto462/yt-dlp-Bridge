@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>yt-dlp Bridge Settings</title>
+  <link rel="stylesheet" href="lib/ui.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-head">
+      <img src="icons/icon48.png" alt="" width="36" height="36">
+      <div>
+        <h1>yt-dlp Bridge</h1>
+        <p class="muted">Every download runs with the yt-dlp on your Mac, using these settings.</p>
+      </div>
+      <span class="saved small" id="saved" aria-live="polite"></span>
+    </header>
+
+    <!-- Connection -->
+    <section class="card" id="connection">
+      <h2>Connection</h2>
+      <div class="conn-line">
+        <span class="dot" id="connDot"></span>
+        <strong id="connTitle">Checking…</strong>
+        <button class="btn small" id="recheck">Check again</button>
+      </div>
+      <p class="muted small" id="connDetail"></p>
+      <dl class="facts" id="facts" hidden>
+        <dt>yt-dlp</dt><dd id="factYtdlp"></dd>
+        <dt>ffmpeg</dt><dd id="factFfmpeg"></dd>
+        <dt>JS runtime</dt><dd id="factJs"></dd>
+        <dt>This extension</dt><dd><code id="extId"></code></dd>
+      </dl>
+      <div class="callout" id="setupHelp" hidden>
+        <ol>
+          <li>Install the tools once: <code>brew install yt-dlp ffmpeg deno</code></li>
+          <li>Open <strong>yt-dlp Bridge</strong> from Applications (or run <code>npm start</code> in the <code>app</code> folder). A download arrow appears in the menu bar.</li>
+          <li>Click <strong>Check again</strong>.</li>
+        </ol>
+      </div>
+      <button class="btn btn-primary" id="pairBtn" hidden>Ask the app for access</button>
+    </section>
+
+    <!-- Save location -->
+    <section class="card">
+      <h2>Save location</h2>
+      <div class="field">
+        <label for="outputDir">Folder</label>
+        <div class="inline">
+          <input class="input" id="outputDir" data-key="outputDir" spellcheck="false">
+          <button class="btn" id="chooseFolder">Choose…</button>
+          <button class="btn" id="openFolder">Open</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="filenamePreset">File name</label>
+        <div class="inline">
+          <select class="select" id="filenamePreset"></select>
+        </div>
+        <input class="input mono" id="filenameTemplate" data-key="filenameTemplate" spellcheck="false" hidden>
+      </div>
+      <div class="field">
+        <label for="playlistPreset">Playlist file names</label>
+        <div class="inline">
+          <select class="select" id="playlistPreset"></select>
+        </div>
+        <input class="input mono" id="playlistTemplate" data-key="playlistTemplate" spellcheck="false" hidden>
+        <p class="hint">Custom names use <a href="https://github.com/yt-dlp/yt-dlp#output-template" target="_blank" rel="noreferrer">yt-dlp output templates</a>. They are relative to the folder above.</p>
+      </div>
+      <label class="check"><input type="checkbox" data-key="overwrite"><span>Replace files that already exist <span class="muted">(delete and download again)</span></span></label>
+      <label class="check"><input type="checkbox" data-key="restrictFilenames"><span>Plain file names <span class="muted">(ASCII only, no spaces)</span></span></label>
+    </section>
+
+    <!-- Format -->
+    <section class="card">
+      <h2>Format</h2>
+      <div class="field">
+        <span class="label">Default download</span>
+        <div class="seg narrow" role="radiogroup" aria-label="Audio or video">
+          <label><input type="radio" name="mode" value="audio" data-key="mode"><span>Audio only</span></label>
+          <label><input type="radio" name="mode" value="video" data-key="mode"><span>Video</span></label>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="audioFormat">Audio format</label>
+          <select class="select" id="audioFormat" data-key="audioFormat"></select>
+        </div>
+        <div class="field">
+          <label for="audioQuality">Audio quality</label>
+          <select class="select" id="audioQuality" data-key="audioQuality"></select>
+        </div>
+        <div class="field">
+          <label for="videoQuality">Video quality (max)</label>
+          <select class="select" id="videoQuality" data-key="videoQuality"></select>
+        </div>
+        <div class="field">
+          <label for="videoContainer">Video file type</label>
+          <select class="select" id="videoContainer" data-key="videoContainer"></select>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" data-key="embedSubs"><span>Embed subtitles in videos</span></label>
+      <div class="field indent" id="subLangsField">
+        <label for="subLangs">Subtitle languages</label>
+        <input class="input mono short" id="subLangs" data-key="subLangs" spellcheck="false">
+        <p class="hint">Comma separated, for example <code>en.*,ja</code>.</p>
+      </div>
+    </section>
+
+    <!-- Cover art & tags -->
+    <section class="card">
+      <h2>Cover art and tags</h2>
+      <label class="check"><input type="checkbox" data-key="embedThumbnail"><span>Embed cover art <span class="muted">(the video thumbnail)</span></span></label>
+      <label class="check indent"><input type="checkbox" data-key="squareThumbnail"><span>Crop cover art to a square <span class="muted">(audio files)</span></span></label>
+      <label class="check"><input type="checkbox" data-key="writeThumbnail"><span>Also save cover art as a .jpg file</span></label>
+      <label class="check"><input type="checkbox" data-key="embedMetadata"><span>Embed tags <span class="muted">(title, artist, date, description)</span></span></label>
+      <label class="check indent"><input type="checkbox" data-key="parseArtistTitle"><span>Read artist from video titles like “Artist - Song”</span></label>
+      <label class="check indent"><input type="checkbox" data-key="playlistAsAlbum"><span>For playlists, use the playlist name as album and the position as track number</span></label>
+      <label class="check"><input type="checkbox" data-key="embedChapters"><span>Embed chapters</span></label>
+    </section>
+
+    <!-- Playlists -->
+    <section class="card">
+      <h2>Playlists</h2>
+      <label class="check"><input type="checkbox" data-key="useArchive"><span>Skip videos already downloaded to this folder <span class="muted">(keeps a hidden <code>.yt-dlp-archive.txt</code>, so running a playlist again only gets new videos)</span></span></label>
+      <p class="hint" id="archiveHint" hidden>Not used while “Replace files that already exist” is on, because every video is downloaded again.</p>
+      <p class="hint">To get only part of a playlist, fill in “Items” in the popup, for example <code>1-10</code> or <code>1,5,9</code>.</p>
+    </section>
+
+    <!-- Advanced -->
+    <section class="card">
+      <h2>Advanced</h2>
+      <div class="grid2">
+        <div class="field">
+          <label for="cookiesFromBrowser">Cookies from browser</label>
+          <select class="select" id="cookiesFromBrowser" data-key="cookiesFromBrowser"></select>
+          <p class="hint">Needed for age-restricted, members-only or private videos. macOS may ask for Keychain access.</p>
+        </div>
+        <div class="field">
+          <label for="rateLimit">Speed limit</label>
+          <input class="input" id="rateLimit" data-key="rateLimit" placeholder="No limit" spellcheck="false">
+          <p class="hint">Bytes per second, for example <code>2M</code> or <code>500K</code>.</p>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" data-key="sponsorBlock"><span>Cut sponsor segments and non-music parts <span class="muted">(SponsorBlock)</span></span></label>
+      <label class="check"><input type="checkbox" data-key="notify"><span>Show a Mac notification when a download finishes</span></label>
+      <label class="check"><input type="checkbox" data-key="useYtdlpConfig"><span>Also load my own yt-dlp config file <span class="muted">(off = only the settings on this page apply)</span></span></label>
+      <div class="field">
+        <label for="port">App port</label>
+        <input class="input short" id="port" data-key="port" type="number" min="1024" max="65535">
+        <p class="hint">Change only if you changed it in the app too.</p>
+      </div>
+    </section>
+
+    <!-- Preview -->
+    <section class="card">
+      <h2>Command preview</h2>
+      <p class="muted small">This is the exact command the app runs for a sample link with your settings.</p>
+      <div class="seg narrow" role="radiogroup" aria-label="Preview scope">
+        <label><input type="radio" name="previewScope" value="single" checked><span>Single video</span></label>
+        <label><input type="radio" name="previewScope" value="playlist"><span>Playlist</span></label>
+      </div>
+      <pre class="preview" id="preview">…</pre>
+      <div class="inline end">
+        <button class="btn" id="copyPreview">Copy</button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <button class="btn btn-ghost" id="reset">Reset all settings</button>
+      <span class="muted small">Shortcut: <kbd>⌥</kbd><kbd>⇧</kbd><kbd>D</kbd> downloads the current tab. Change it at <code>chrome://extensions/shortcuts</code>.</span>
+    </footer>
+  </div>
+  <script type="module" src="options.js"></script>
+</body>
+</html>
