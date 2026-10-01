@@ -92,6 +92,7 @@ npm install            # Playwright, used for icons and the end-to-end test
 npm test               # app unit and API tests (fake yt-dlp, no network)
 npm run e2e            # real app + extension in Chromium + real yt-dlp (needs network)
 npm run icons          # re-render all icons from SVG
+npm run build:extension  # check the extension, copy it to dist/extension and zip it
 ```
 
 | Path | What it is |
