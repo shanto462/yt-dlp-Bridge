@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+
+      # The tests use only Node built-ins. Installing still checks that the
+      # lockfile is valid; --ignore-scripts skips the Electron binary download.
+      - name: Install app dependencies
+        run: npm ci --ignore-scripts
+        working-directory: app
+
+      - name: Check app scripts parse
+        run: for f in app/src/*.js scripts/*.mjs; do node --check "$f"; done
+
+      - name: Unit and API tests
+        run: npm test
+
+      - name: Check and package the extension
+        run: npm run build:extension

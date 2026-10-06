@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest a new option or an improvement.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What do you want to do?
+      description: Describe the goal, not only the solution.
+      placeholder: I download whole albums from Bandcamp and want each album in its own folder named "Artist - Album".
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: How could it work?
+      description: If you know the yt-dlp flag for it, include it. New options must be a fixed choice or a strict pattern, never a free-text flag.
+      placeholder: A new playlist file name preset that uses `%(artist)s - %(album)s/%(track_number)02d - %(title)s.%(ext)s`.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything you tried already?
+      placeholder: A custom template works, but it is hard to remember.
