@@ -6,6 +6,10 @@
   "main": "src/main.js",
   "private": true,
   "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/shanto462/yt-dlp-Bridge.git" },
+  "bugs": { "url": "https://github.com/shanto462/yt-dlp-Bridge/issues" },
+  "homepage": "https://github.com/shanto462/yt-dlp-Bridge#readme",
+  "engines": { "node": ">=20" },
   "scripts": {
     "start": "electron .",
     "test": "node --test test/*.test.js",

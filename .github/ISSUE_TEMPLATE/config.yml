@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem
+    url: https://github.com/shanto462/yt-dlp-Bridge/security/advisories/new
+    about: Please report security problems privately, not as an issue.
+  - name: A site stopped working in yt-dlp
+    url: https://github.com/yt-dlp/yt-dlp/issues
+    about: Site errors (403, "Unsupported URL", sign-in required) usually belong to yt-dlp. Update yt-dlp first.
