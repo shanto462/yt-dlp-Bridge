@@ -1,4 +1,11 @@
 node_modules/
+dist/
 app/dist/
 .DS_Store
-dist/
+*.log
+.env
+.env.*
+
+# Chrome extension signing keys and packed builds. Never commit the private key.
+*.pem
+*.crx

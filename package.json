@@ -1,7 +1,20 @@
 {
   "name": "ytdlp-bridge-workspace",
   "private": true,
+  "description": "Workspace for yt-dlp Bridge: Chrome extension and macOS menu bar app.",
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shanto462/yt-dlp-Bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shanto462/yt-dlp-Bridge/issues"
+  },
+  "homepage": "https://github.com/shanto462/yt-dlp-Bridge#readme",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "test": "npm --prefix app test",
     "e2e": "node scripts/e2e.mjs",

@@ -1,5 +1,8 @@
 # yt-dlp Bridge
 
+[![CI](https://github.com/shanto462/yt-dlp-Bridge/actions/workflows/ci.yml/badge.svg)](https://github.com/shanto462/yt-dlp-Bridge/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A Chrome extension and a small macOS menu bar app. The extension never downloads anything itself. When you click **Download**, it sends the link and your settings to the menu bar app, and the app runs the `yt-dlp` installed on your Mac.
 
 - Audio (MP3, M4A, Opus, FLAC, ALAC, WAV...) or video (up to 4K, MP4 or MKV)
@@ -21,6 +24,13 @@ Chrome extension  ──POST http://127.0.0.1:41769/api/jobs──▶  menu bar 
 
 The app builds the yt-dlp command from a checked list of options. The extension can never send raw command-line flags, and yt-dlp runs without a shell. The settings page shows the exact command for your settings.
 
+## Requirements
+
+- macOS 13 (Ventura) or later, on Apple Silicon or Intel
+- Chrome 120 or later
+- Node.js 20 or later, to build the app
+- [Homebrew](https://brew.sh), to install yt-dlp, ffmpeg and deno
+
 ## Setup
 
 1. Install the tools once (deno is the JavaScript runtime yt-dlp needs for YouTube):
@@ -38,6 +48,8 @@ The app builds the yt-dlp command from a checked list of options. The extension 
    ```bash
    mv "app/dist/mac-arm64/yt-dlp Bridge.app" /Applications/
    ```
+
+   On an Intel Mac the folder is `app/dist/mac` instead of `app/dist/mac-arm64`.
 
    Open **yt-dlp Bridge** from Applications. A download arrow appears in the menu bar. To start it with your Mac, choose **Open at Login** in its menu. For development you can run `npm start` in `app/` instead.
 
@@ -74,6 +86,8 @@ The menu bar app has its own small menu: downloads at once (1 to 4), cancel, ret
 - The bundled extension has a fixed ID (`kdnempddaodnginhpkpilbagmmimkkbg`, set by the `key` in `extension/manifest.json`) and is allowed by default. Any other extension must be allowed once in a native dialog. You can remove allowed extensions in the menu.
 - Every option is checked against a fixed list or a strict pattern. File name templates cannot be absolute or contain `..`.
 
+Found a security problem? Please report it privately, as described in [SECURITY.md](SECURITY.md).
+
 ## Troubleshooting
 
 | Problem | Fix |
@@ -105,3 +119,15 @@ npm run build:extension  # check the extension, copy it to dist/extension and zi
 | `app/src/main.js` | Electron menu bar, dialogs and notifications |
 
 API (all JSON, `POST` unless noted): `GET|POST /api/status`, `/api/pair`, `/api/jobs`, `/api/jobs/list`, `/api/jobs/clear`, `/api/jobs/:id/{cancel,retry,reveal,log}`, `/api/preview`, `/api/pick-folder`, `/api/open-folder`.
+
+## Contributing
+
+Issues and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first, and please follow the [code of conduct](CODE_OF_CONDUCT.md).
+
+## Disclaimer
+
+yt-dlp Bridge is not affiliated with yt-dlp, YouTube, or any other site. It only starts the yt-dlp you installed yourself. Download only content you have the right to download, and follow the terms of the sites you use.
+
+## License
+
+[MIT](LICENSE)
