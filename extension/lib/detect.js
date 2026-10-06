@@ -31,7 +31,7 @@ export function describeUrl(raw) {
   if (host === 'music.youtube.com') return youtube(u, parts, 'YouTube Music');
   if (host === 'youtube.com' || host === 'youtube-nocookie.com') return youtube(u, parts, 'YouTube');
   if (host === 'soundcloud.com') return soundcloud(parts);
-  if (host.endsWith('bandcamp.com')) return bandcamp(parts);
+  if (host === 'bandcamp.com' || host.endsWith('.bandcamp.com')) return bandcamp(parts);
   if (host === 'vimeo.com' && ['showcase', 'channels', 'album'].includes(parts[0])) {
     return result({ site: 'Vimeo', kind: 'playlist', label: 'Vimeo collection', canSingle: false, canPlaylist: true, defaultScope: 'playlist' });
   }
