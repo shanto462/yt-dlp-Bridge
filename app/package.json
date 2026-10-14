@@ -16,7 +16,7 @@
     "dist": "electron-builder --mac --dir && codesign --force --deep --sign - dist/mac*/*.app"
   },
   "devDependencies": {
-    "electron": "^44.5.1",
+    "electron": "^44.7.0",
     "electron-builder": "^26.15.3"
   },
   "build": {
